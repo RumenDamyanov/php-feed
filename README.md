@@ -1,5 +1,8 @@
 # PHP Feed (Framework-Agnostic)
 
+[![CI](https://github.com/RumenDamyanov/php-feed/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/RumenDamyanov/php-feed/actions/workflows/ci.yml)
+[![codecov](https://codecov.io/gh/RumenDamyanov/php-feed/branch/master/graph/badge.svg)](https://codecov.io/gh/RumenDamyanov/php-feed)
+
 A modern, framework-agnostic PHP Feed generator for Laravel, Symfony, and any PHP project.
 
 ## Installation
