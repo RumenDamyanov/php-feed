@@ -1,0 +1,48 @@
+{
+	"name": "rumenx/php-feed",
+	"description": "Framework-agnostic PHP Feed generator for Laravel, Symfony, and more.",
+	"homepage": "https://github.com/RumenDamyanov/php-feed",
+	"keywords": ["php", "feed", "rss", "atom", "laravel", "symfony", "generator"],
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Rumen Damyanov",
+			"email": "contact@rumenx.com",
+			"role": "Developer",
+			"homepage": "https://rumenx.com"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/RumenDamyanov/php-feed/issues",
+		"source": "https://github.com/RumenDamyanov/php-feed"
+	},
+	"require": {
+		"php": "^8.3 || ^8.4"
+	},
+	"require-dev": {
+		"laravel/framework": "^11.0",
+		"symfony/http-foundation": "^7.0",
+		"phpunit/phpunit": "^11.0",
+		"pestphp/pest": "^3.8",
+		"orchestra/testbench": "^9.14",
+		"symfony/cache": "^7.3",
+		"symfony/dependency-injection": "^7.3",
+		"symfony/templating": "^6.4"
+	},
+	"autoload": {
+		"psr-4": {
+			"Rumenx\\Feed\\": "src/Rumenx/Feed/"
+		}
+	},
+	"suggest": {
+		"laravel/framework": "For Laravel integration",
+		"symfony/http-foundation": "For Symfony integration"
+	},
+	"minimum-stability": "stable",
+	"prefer-stable": true,
+	"config": {
+		"allow-plugins": {
+			"pestphp/pest-plugin": true
+		}
+	}
+}

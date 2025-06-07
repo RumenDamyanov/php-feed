@@ -1,0 +1,15 @@
+/vendor
+composer.phar
+composer.lock
+.directory
+.DS_Store
+Thumbs.db
+*.sh
+/tests/tmp
+.php_cs
+/.php_cs.cache
+/.phpunit.result.cache
+.idea/
+/build
+/html
+--cache-directory/
