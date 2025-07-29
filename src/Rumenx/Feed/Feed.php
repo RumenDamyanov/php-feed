@@ -26,6 +26,7 @@ class Feed
     public const DEFAULT_DATE_FORMAT = 'datetime';
 
     // Feed metadata
+    /** @var array<int, array<string, mixed>> */
     private array $items = [];
     private string $title = 'My feed title';
     private string $subtitle = 'My feed subtitle';
@@ -45,6 +46,7 @@ class Feed
     private string $charset = 'utf-8';
     private ?string $ctype = null;
     private ?string $duration = null;
+    /** @var array<string, string> */
     private array $namespaces = [];
 
     // Feed config
@@ -63,7 +65,7 @@ class Feed
 
     /**
      * Using constructor we populate our model from configuration file and loading dependencies
-     * @param array $params
+     * @param array<string, mixed> $params
      */
     public function __construct(array $params)
     {
@@ -80,7 +82,7 @@ class Feed
 
     /**
      * Add new items to $items array
-     * @param array $item
+     * @param array<string, mixed>|array<int, array<string, mixed>> $item
      */
     public function addItem(array $item): void
     {
@@ -102,7 +104,7 @@ class Feed
             $item['subtitle'] = htmlspecialchars(strip_tags($item['subtitle']), ENT_COMPAT, 'UTF-8');
         }
         // Updated logic: set feed subtitle from item if feed subtitle is unset or empty string
-        if ((empty($this->subtitle) || $this->subtitle === '') && !empty($item['subtitle'])) {
+        if (empty($this->subtitle) && !empty($item['subtitle'])) {
             $this->subtitle = $item['subtitle'];
         }
         $this->items[] = $item;
@@ -261,10 +263,16 @@ class Feed
     {
         return $this->caching;
     }
+    /**
+     * @param array<string, string> $namespaces
+     */
     public function setNamespaces(array $namespaces): void
     {
         $this->namespaces = $namespaces;
     }
+    /**
+     * @return array<string, string>
+     */
     public function getNamespaces(): array
     {
         return $this->namespaces;
@@ -278,40 +286,148 @@ class Feed
         return $this->shorteningLimit;
     }
     // --- Metadata Getters/Setters ---
-    public function getTitle(): string { return $this->title; }
-    public function setTitle(string $title): void { $this->title = $title; }
-    public function getSubtitle(): string { return $this->subtitle; }
-    public function setSubtitle(string $subtitle): void { $this->subtitle = $subtitle; }
-    public function getDescription(): string { return $this->description; }
-    public function setDescription(string $description): void { $this->description = $description; }
-    public function getDomain(): ?string { return $this->domain; }
-    public function setDomain(?string $domain): void { $this->domain = $domain; }
-    public function getLink(): ?string { return $this->link; }
-    public function setLink(?string $link): void { $this->link = $link; }
-    public function getRef(): ?string { return $this->ref; }
-    public function setRef(?string $ref): void { $this->ref = $ref; }
-    public function getLogo(): ?string { return $this->logo; }
-    public function setLogo(?string $logo): void { $this->logo = $logo; }
-    public function getIcon(): ?string { return $this->icon; }
-    public function setIcon(?string $icon): void { $this->icon = $icon; }
-    public function getCover(): ?string { return $this->cover; }
-    public function setCover(?string $cover): void { $this->cover = $cover; }
-    public function getColor(): ?string { return $this->color; }
-    public function setColor(?string $color): void { $this->color = $color; }
-    public function getGa(): ?string { return $this->ga; }
-    public function setGa(?string $ga): void { $this->ga = $ga; }
-    public function getRelated(): bool { return $this->related; }
-    public function setRelated(bool $related): void { $this->related = $related; }
-    public function getCopyright(): ?string { return $this->copyright; }
-    public function setCopyright(?string $copyright): void { $this->copyright = $copyright; }
-    public function getPubdate(): ?string { return $this->pubdate; }
-    public function setPubdate(?string $pubdate): void { $this->pubdate = $pubdate; }
-    public function getLang(): ?string { return $this->lang; }
-    public function setLang(?string $lang): void { $this->lang = $lang; }
-    public function getCharset(): string { return $this->charset; }
-    public function setCharset(string $charset): void { $this->charset = $charset; }
-    public function getCtype(): ?string { return $this->ctype; }
-    public function setCtype(?string $ctype): void { $this->ctype = $ctype; }
-    public function getDuration(): ?string { return $this->duration; }
-    public function setDuration(?string $duration): void { $this->duration = $duration; }
+    public function getTitle(): string
+    {
+        return $this->title;
+    }
+    public function setTitle(string $title): void
+    {
+        $this->title = $title;
+    }
+    public function getSubtitle(): string
+    {
+        return $this->subtitle;
+    }
+    public function setSubtitle(string $subtitle): void
+    {
+        $this->subtitle = $subtitle;
+    }
+    public function getDescription(): string
+    {
+        return $this->description;
+    }
+    public function setDescription(string $description): void
+    {
+        $this->description = $description;
+    }
+    public function getDomain(): ?string
+    {
+        return $this->domain;
+    }
+    public function setDomain(?string $domain): void
+    {
+        $this->domain = $domain;
+    }
+    public function getLink(): ?string
+    {
+        return $this->link;
+    }
+    public function setLink(?string $link): void
+    {
+        $this->link = $link;
+    }
+    public function getRef(): ?string
+    {
+        return $this->ref;
+    }
+    public function setRef(?string $ref): void
+    {
+        $this->ref = $ref;
+    }
+    public function getLogo(): ?string
+    {
+        return $this->logo;
+    }
+    public function setLogo(?string $logo): void
+    {
+        $this->logo = $logo;
+    }
+    public function getIcon(): ?string
+    {
+        return $this->icon;
+    }
+    public function setIcon(?string $icon): void
+    {
+        $this->icon = $icon;
+    }
+    public function getCover(): ?string
+    {
+        return $this->cover;
+    }
+    public function setCover(?string $cover): void
+    {
+        $this->cover = $cover;
+    }
+    public function getColor(): ?string
+    {
+        return $this->color;
+    }
+    public function setColor(?string $color): void
+    {
+        $this->color = $color;
+    }
+    public function getGa(): ?string
+    {
+        return $this->ga;
+    }
+    public function setGa(?string $ga): void
+    {
+        $this->ga = $ga;
+    }
+    public function getRelated(): bool
+    {
+        return $this->related;
+    }
+    public function setRelated(bool $related): void
+    {
+        $this->related = $related;
+    }
+    public function getCopyright(): ?string
+    {
+        return $this->copyright;
+    }
+    public function setCopyright(?string $copyright): void
+    {
+        $this->copyright = $copyright;
+    }
+    public function getPubdate(): ?string
+    {
+        return $this->pubdate;
+    }
+    public function setPubdate(?string $pubdate): void
+    {
+        $this->pubdate = $pubdate;
+    }
+    public function getLang(): ?string
+    {
+        return $this->lang;
+    }
+    public function setLang(?string $lang): void
+    {
+        $this->lang = $lang;
+    }
+    public function getCharset(): string
+    {
+        return $this->charset;
+    }
+    public function setCharset(string $charset): void
+    {
+        $this->charset = $charset;
+    }
+    public function getCtype(): ?string
+    {
+        return $this->ctype;
+    }
+    public function setCtype(?string $ctype): void
+    {
+        $this->ctype = $ctype;
+    }
+    public function getDuration(): ?string
+    {
+        return $this->duration;
+    }
+    public function setDuration(?string $duration): void
+    {
+        $this->duration = $duration;
+    }
 }

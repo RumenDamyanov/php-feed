@@ -1,4 +1,5 @@
 <?php
+
 // LaravelViewAdapter.php
 // Adapter for integrating FeedViewInterface with Laravel's ViewFactory.
 
@@ -12,18 +13,24 @@ use Rumenx\Feed\FeedViewInterface;
  *
  * @package Rumenx\Feed\Laravel
  */
-class LaravelViewAdapter implements FeedViewInterface {
+class LaravelViewAdapter implements FeedViewInterface
+{
     /**
      * @param ViewFactory $view Laravel's view factory instance
      */
-    public function __construct(private ViewFactory $view) {}
+    public function __construct(private ViewFactory $view)
+    {
+    }
 
     /**
      * Create a view instance.
      *
      * @param string $view The view name
-     * @param array $data Data to pass to the view
+     * @param array<string, mixed> $data Data to pass to the view
      * @return mixed
      */
-    public function make(string $view, array $data = []): mixed { return $this->view->make($view, $data); }
+    public function make(string $view, array $data = []): mixed
+    {
+        return $this->view->make($view, $data);
+    }
 }

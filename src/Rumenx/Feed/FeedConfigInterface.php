@@ -1,4 +1,5 @@
 <?php
+
 // FeedConfigInterface.php
 // Interface for config adapter used by Feed.
 
@@ -7,7 +8,8 @@ namespace Rumenx\Feed;
 /**
  * Interface for config adapter used by Feed.
  */
-interface FeedConfigInterface {
+interface FeedConfigInterface
+{
     /**
      * Get a config value by key.
      * @param string $key

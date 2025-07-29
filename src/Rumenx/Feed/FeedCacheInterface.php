@@ -1,4 +1,5 @@
 <?php
+
 // FeedCacheInterface.php
 // Interface for cache adapter used by Feed.
 
@@ -7,7 +8,8 @@ namespace Rumenx\Feed;
 /**
  * Interface for cache adapter used by Feed.
  */
-interface FeedCacheInterface {
+interface FeedCacheInterface
+{
     /**
      * Check if a cache key exists.
      * @param string $key

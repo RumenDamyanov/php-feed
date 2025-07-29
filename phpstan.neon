@@ -11,5 +11,8 @@ parameters:
         # Allow mixed return types for adapter interfaces to maintain framework compatibility
         - '#Method .+::(make|get) has no return type specified\.#'
         - '#Method .+ should return .+ but returns mixed\.#'
+        # Template variables are provided by calling context (include/require)
         - '#Variable \$namespaces might not be defined\.#'
+        - '#Variable \$channel might not be defined\.#'
+        - '#Variable \$items might not be defined\.#'
     reportUnmatchedIgnoredErrors: false

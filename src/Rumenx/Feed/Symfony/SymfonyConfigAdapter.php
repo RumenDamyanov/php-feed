@@ -1,4 +1,5 @@
 <?php
+
 namespace Rumenx\Feed\Symfony;
 
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
