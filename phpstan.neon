@@ -1,0 +1,15 @@
+parameters:
+    level: 6
+    paths:
+        - src
+    excludePaths:
+        - tests
+        - src/Rumenx/Feed/Symfony
+        - views (?)
+    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+        # Allow mixed return types for adapter interfaces to maintain framework compatibility
+        - '#Method .+::(make|get) has no return type specified\.#'
+        - '#Method .+ should return .+ but returns mixed\.#'
+        - '#Variable \$namespaces might not be defined\.#'
+    reportUnmatchedIgnoredErrors: false

@@ -17,7 +17,7 @@
 		"source": "https://github.com/RumenDamyanov/php-feed"
 	},
 	"require": {
-		"php": "^8.3 || ^8.4"
+		"php": ">=8.3"
 	},
 	"require-dev": {
 		"laravel/framework": "^11.0",
@@ -27,7 +27,9 @@
 		"orchestra/testbench": "^9.14",
 		"symfony/cache": "^7.3",
 		"symfony/dependency-injection": "^7.3",
-		"symfony/templating": "^6.4"
+		"symfony/templating": "^6.4",
+		"phpstan/phpstan": "^2.1",
+		"squizlabs/php_codesniffer": "^3.10"
 	},
 	"autoload": {
 		"psr-4": {
@@ -44,5 +46,25 @@
 		"allow-plugins": {
 			"pestphp/pest-plugin": true
 		}
+	},
+	"scripts": {
+		"test": "pest",
+		"test:coverage": "pest --coverage",
+		"test:coverage-html": "pest --coverage-html",
+		"test:watch": "pest --watch",
+		"analyse": "phpstan analyse --level=6 -c phpstan.neon",
+		"format": "pint",
+		"style": "phpcs --standard=PSR12 src/",
+		"style:fix": "phpcbf --standard=PSR12 src/",
+		"check": [
+			"@test",
+			"@analyse",
+			"@style"
+		],
+		"ci": [
+			"@test:coverage",
+			"@analyse",
+			"@style"
+		]
 	}
 }
