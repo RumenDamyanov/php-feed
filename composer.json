@@ -14,8 +14,15 @@
 	],
 	"support": {
 		"issues": "https://github.com/RumenDamyanov/php-feed/issues",
-		"source": "https://github.com/RumenDamyanov/php-feed"
+		"source": "https://github.com/RumenDamyanov/php-feed",
+                "wiki": "https://github.com/RumenDamyanov/php-feed/wiki"
 	},
+        "funding": [
+               {
+                        "type": "github",
+                        "url": "https://github.com/sponsors/RumenDamyanov"
+                }
+        ],
 	"require": {
 		"php": ">=8.3"
 	},
