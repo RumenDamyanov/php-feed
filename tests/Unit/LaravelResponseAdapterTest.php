@@ -21,7 +21,9 @@ describe('LaravelResponseAdapter', function () {
             public function noContent($status = 204, array $headers = []) {}
             public function json($data = [], $status = 200, array $headers = [], $options = 0) {}
             public function jsonp($callback, $data = [], $status = 200, array $headers = [], $options = 0) {}
+            public function eventStream(\Closure $callback, array $headers = [], \Illuminate\Http\StreamedEvent|string|null $endStreamWith = '</stream>') {}
             public function stream($callback, $status = 200, array $headers = []) {}
+            public function streamJson($data, $status = 200, $headers = [], $encodingOptions = 15) {}
             public function streamDownload($callback, $name = null, array $headers = [], $disposition = 'attachment') {}
             public function download($file, $name = null, array $headers = [], $disposition = 'attachment') {}
             public function redirectTo($path, $status = 302, $headers = [], $secure = null) {}
