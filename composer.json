@@ -27,11 +27,11 @@
 		"php": "^8.2"
 	},
 	"require-dev": {
-		"laravel/framework": "^11.0",
+		"laravel/framework": "^12",
 		"symfony/http-foundation": "^7.0",
 		"phpunit/phpunit": "^11.0",
 		"pestphp/pest": "^3.8",
-		"orchestra/testbench": "^9.14",
+		"orchestra/testbench": "^10",
 		"symfony/cache": "^7.3",
 		"symfony/dependency-injection": "^7.3",
 		"symfony/templating": "^6.4",
