@@ -3,7 +3,7 @@
     echo " " . $n;
                                          } ?>>
   <title type="text">{!! $channel['title'] !!}</title>
-  <subtitle type="html"><![CDATA[{!! $channel['description'] !!}]]></subtitle>
+  <subtitle type="html"><![CDATA[{!! \Rumenx\Feed\Feed::escapeCdata((string) ($channel['description'] ?? '')) !!}]]></subtitle>
   <link href="{{ $channel['rssLink'] }}"></link>
   <id>{{ $channel['link'] }}</id>
   <link rel="alternate" type="text/html" href="{{ $channel['rssLink'] }}" ></link>
@@ -20,11 +20,11 @@
       <author>
         <name>{{ $item['author'] }}</name>
       </author>
-      <title type="text"><![CDATA[{!! $item['title'] !!}]]></title>
+      <title type="text"><![CDATA[{!! \Rumenx\Feed\Feed::escapeCdata((string) ($item['title'] ?? '')) !!}]]></title>
       <link rel="alternate" type="text/html" href="{{ $item['link'] }}"></link>
       <id>{{ $item['link'] }}</id>
-      <summary type="html"><![CDATA[{!! $item['description'] !!}]]></summary>
-      <content type="html"><![CDATA[{!! $item['content'] !!}]]></content>
+      <summary type="html"><![CDATA[{!! \Rumenx\Feed\Feed::escapeCdata((string) ($item['description'] ?? '')) !!}]]></summary>
+      <content type="html"><![CDATA[{!! \Rumenx\Feed\Feed::escapeCdata((string) ($item['content'] ?? '')) !!}]]></content>
       <updated>{{ $item['pubdate'] }}</updated>
     </entry>
 @endforeach

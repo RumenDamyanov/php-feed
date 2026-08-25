@@ -12,12 +12,12 @@
 
   <?php foreach ($items as $item): ?>
   <entry>
-    <title type="html"><![CDATA[<?php echo $item['title']; ?>]]></title>
+    <title type="html"><![CDATA[<?php echo \Rumenx\Feed\Feed::escapeCdata((string) ($item['title'] ?? '')); ?>]]></title>
     <link rel="alternate" type="text/html" href="<?php echo htmlspecialchars($item['link']); ?>"/>
     <id><?php echo htmlspecialchars($item['link']); ?></id>
     <updated><?php echo htmlspecialchars($item['pubdate']); ?></updated>
-    <summary type="html"><![CDATA[<?php echo $item['description']; ?>]]></summary>
-    <content type="html"><![CDATA[<?php echo $item['description']; ?>]]></content>
+    <summary type="html"><![CDATA[<?php echo \Rumenx\Feed\Feed::escapeCdata((string) ($item['description'] ?? '')); ?>]]></summary>
+    <content type="html"><![CDATA[<?php echo \Rumenx\Feed\Feed::escapeCdata((string) ($item['description'] ?? '')); ?>]]></content>
     <author>
       <name><?php echo htmlspecialchars($item['author']); ?></name>
     </author>

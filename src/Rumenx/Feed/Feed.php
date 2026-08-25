@@ -103,6 +103,12 @@ class Feed
         if (isset($item['subtitle'])) {
             $item['subtitle'] = htmlspecialchars(strip_tags($item['subtitle']), ENT_COMPAT, 'UTF-8');
         }
+        if (isset($item['description'])) {
+            $item['description'] = self::escapeCdata((string) $item['description']);
+        }
+        if (isset($item['content'])) {
+            $item['content'] = self::escapeCdata((string) $item['content']);
+        }
         // Updated logic: set feed subtitle from item if feed subtitle is unset or empty string
         if (empty($this->subtitle) && !empty($item['subtitle'])) {
             $this->subtitle = $item['subtitle'];
@@ -146,7 +152,7 @@ class Feed
         $channel = [
             'title' => htmlspecialchars(strip_tags($this->title), ENT_COMPAT, 'UTF-8'),
             'subtitle' => htmlspecialchars(strip_tags($this->subtitle), ENT_COMPAT, 'UTF-8'),
-            'description' => $this->description,
+            'description' => self::escapeCdata($this->description),
             'logo' => $this->logo,
             'icon' => $this->icon,
             'color' => $this->color,
@@ -429,5 +435,16 @@ class Feed
     public function setDuration(?string $duration): void
     {
         $this->duration = $duration;
+    }
+
+    /**
+     * Escape a value for inclusion in an XML CDATA section.
+     *
+     * A literal `]]>` sequence would terminate the CDATA section and allow
+     * the remainder of the value to be parsed as real XML (GHSA-264h-qh97-mgwf).
+     */
+    public static function escapeCdata(string $value): string
+    {
+        return str_replace(']]>', ']]&gt;', $value);
     }
 }

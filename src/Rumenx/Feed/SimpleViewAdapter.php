@@ -58,14 +58,14 @@ class SimpleViewAdapter implements FeedViewInterface
         $xml .= '  <channel>' . "\n";
         $xml .= '    <title>' . htmlspecialchars($channel['title']) . '</title>' . "\n";
         $xml .= '    <link>' . htmlspecialchars($channel['link']) . '</link>' . "\n";
-        $xml .= '    <description><![CDATA[' . $channel['description'] . ']]></description>' . "\n";
+        $xml .= '    <description>' . $this->wrapCdata((string) $channel['description']) . '</description>' . "\n";
         $xml .= '    <pubDate>' . $channel['pubdate'] . '</pubDate>' . "\n";
 
         foreach ($items as $item) {
             $xml .= '    <item>' . "\n";
-            $xml .= '      <title><![CDATA[' . ($item['title'] ?? '') . ']]></title>' . "\n";
+            $xml .= '      <title>' . $this->wrapCdata((string) ($item['title'] ?? '')) . '</title>' . "\n";
             $xml .= '      <link>' . htmlspecialchars($item['link'] ?? '') . '</link>' . "\n";
-            $xml .= '      <description><![CDATA[' . ($item['description'] ?? '') . ']]></description>' . "\n";
+            $xml .= '      <description>' . $this->wrapCdata((string) ($item['description'] ?? '')) . '</description>' . "\n";
             $xml .= '      <author>' . htmlspecialchars($item['author'] ?? '') . '</author>' . "\n";
             $xml .= '      <pubDate>' . ($item['pubdate'] ?? date('r')) . '</pubDate>' . "\n";
             $xml .= '      <guid>' . htmlspecialchars($item['link'] ?? '') . '</guid>' . "\n";
@@ -97,11 +97,11 @@ class SimpleViewAdapter implements FeedViewInterface
 
         foreach ($items as $item) {
             $xml .= '  <entry>' . "\n";
-            $xml .= '    <title type="html"><![CDATA[' . ($item['title'] ?? '') . ']]></title>' . "\n";
+            $xml .= '    <title type="html">' . $this->wrapCdata((string) ($item['title'] ?? '')) . '</title>' . "\n";
             $xml .= '    <link rel="alternate" type="text/html" href="' . htmlspecialchars($item['link'] ?? '') . '"/>' . "\n";
             $xml .= '    <id>' . htmlspecialchars($item['link'] ?? '') . '</id>' . "\n";
             $xml .= '    <updated>' . date('c', strtotime($item['pubdate'] ?? 'now')) . '</updated>' . "\n";
-            $xml .= '    <summary type="html"><![CDATA[' . ($item['description'] ?? '') . ']]></summary>' . "\n";
+            $xml .= '    <summary type="html">' . $this->wrapCdata((string) ($item['description'] ?? '')) . '</summary>' . "\n";
             $xml .= '    <author>' . "\n";
             $xml .= '      <name>' . htmlspecialchars($item['author'] ?? '') . '</name>' . "\n";
             $xml .= '    </author>' . "\n";
@@ -111,5 +111,10 @@ class SimpleViewAdapter implements FeedViewInterface
         $xml .= '</feed>';
 
         return $xml;
+    }
+
+    private function wrapCdata(string $value): string
+    {
+        return '<![CDATA[' . Feed::escapeCdata($value) . ']]>';
     }
 }
