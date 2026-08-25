@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.3] - 2026-08-25
+
+### Security
+
+- Escape `]]>` in every CDATA-wrapped field (item description/summary/content, channel description, titles) so a CDATA breakout cannot inject XML ([GHSA-264h-qh97-mgwf](https://github.com/RumenDamyanov/php-feed/security/advisories/GHSA-264h-qh97-mgwf)).
+
+## [1.0.0] - TBD
+
 ### Added
 
 - Framework-agnostic architecture with dependency injection
@@ -31,8 +39,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Direct property access (replaced with getter/setter methods)
 - Support for PHP versions below 8.3
-
-## [1.0.0] - TBD
 
 ### Initial Release
 

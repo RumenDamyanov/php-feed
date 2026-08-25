@@ -3,7 +3,7 @@
   <channel>
     <title><?php echo htmlspecialchars($channel['title']); ?></title>
     <link><?php echo htmlspecialchars($channel['rssLink']); ?></link>
-    <description><![CDATA[<?php echo $channel['description']; ?>]]></description>
+    <description><![CDATA[<?php echo \Rumenx\Feed\Feed::escapeCdata((string) $channel['description']); ?>]]></description>
     <atom:link href="<?php echo htmlspecialchars($channel['link']); ?>" rel="<?php echo htmlspecialchars($channel['ref']); ?>" type="application/rss+xml" />
     <?php if (!empty($channel['copyright'])): ?>
     <copyright><?php echo htmlspecialchars($channel['copyright']); ?></copyright>
@@ -31,9 +31,9 @@
 
     <?php foreach ($items as $item): ?>
     <item>
-      <title><![CDATA[<?php echo $item['title']; ?>]]></title>
+      <title><![CDATA[<?php echo \Rumenx\Feed\Feed::escapeCdata((string) ($item['title'] ?? '')); ?>]]></title>
       <link><?php echo htmlspecialchars($item['link']); ?></link>
-      <description><![CDATA[<?php echo $item['description']; ?>]]></description>
+      <description><![CDATA[<?php echo \Rumenx\Feed\Feed::escapeCdata((string) ($item['description'] ?? '')); ?>]]></description>
       <author><?php echo htmlspecialchars($item['author']); ?></author>
       <guid><?php echo htmlspecialchars($item['link']); ?></guid>
       <pubDate><?php echo htmlspecialchars($item['pubdate']); ?></pubDate>

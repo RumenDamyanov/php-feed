@@ -5,7 +5,7 @@
   <channel>
     <title>{!! $channel['title'] !!}</title>
     <link>{{ $channel['rssLink'] }}</link>
-    <description><![CDATA[{!! $channel['description'] !!}]]></description>
+    <description><![CDATA[{!! \Rumenx\Feed\Feed::escapeCdata((string) ($channel['description'] ?? '')) !!}]]></description>
     <atom:link href="{{ $channel['link'] }}" rel="{{ $channel['ref'] }}" type="application/rss+xml" />
     @if (!empty($channel['copyright']))
     <copyright>{{ $channel['copyright'] }}</copyright>
@@ -37,15 +37,15 @@
     <lastBuildDate>{{ $channel['pubdate'] }}</lastBuildDate>
     @foreach($items as $item)
     <item>
-      <title><![CDATA[{!! $item['title'] !!}]]></title>
+      <title><![CDATA[{!! \Rumenx\Feed\Feed::escapeCdata((string) ($item['title'] ?? '')) !!}]]></title>
       @if (!empty($item['category']))
       <category>{{ $item['category'] }}</category>
       @endif
       <link>{{ $item['link'] }}</link>
       <guid isPermaLink="true">{{ $item['link'] }}</guid>
-      <description><![CDATA[{!! $item['description'] !!}]]></description>
+      <description><![CDATA[{!! \Rumenx\Feed\Feed::escapeCdata((string) ($item['description'] ?? '')) !!}]]></description>
       @if (!empty($item['content']))
-      <content:encoded><![CDATA[{!! $item['content'] !!}]]></content:encoded>
+      <content:encoded><![CDATA[{!! \Rumenx\Feed\Feed::escapeCdata((string) $item['content']) !!}]]></content:encoded>
       @endif
       <dc:creator xmlns:dc="http://purl.org/dc/elements/1.1/">{!! $item['author'] !!}</dc:creator>
       <pubDate>{{ $item['pubdate'] }}</pubDate>
