@@ -126,6 +126,9 @@ class Feed
     public function render(?string $format = null, ?int $cache = null, ?string $key = null): mixed
     {
         $format = $format ?? self::DEFAULT_FORMAT;
+        if (!in_array($format, ['atom', 'rss'], true)) {
+            throw new \InvalidArgumentException("Unsupported feed format: {$format}");
+        }
         if ($cache === 0 || ($cache === null && $this->caching === 0)) {
             $this->clearCache();
         }
@@ -135,6 +138,7 @@ class Feed
         if ($key !== null) {
             $this->cacheKey = $key;
         }
+        // customView is an explicit template name. Otherwise only the allowlisted format is appended.
         $view = $this->customView ?? 'feed::' . $format;
         $ctype = $this->ctype ?? ($format === 'atom' ? self::FORMAT_ATOM : self::FORMAT_RSS);
         if ($this->caching > 0 && $this->cache->has($this->cacheKey)) {
@@ -191,9 +195,10 @@ class Feed
     public static function link(string $url, string $type = 'atom', ?string $title = null, ?string $lang = null): string
     {
         $type = in_array($type, ['rss', 'atom'], true) ? 'application/' . $type . '+xml' : $type;
-        $titleAttr = $title ? ' title="' . $title . '"' : '';
-        $langAttr = $lang ? ' hreflang="' . $lang . '"' : '';
-        return '<link rel="alternate"' . $langAttr . ' type="' . $type . '" href="' . $url . '"' . $titleAttr . '>';
+        $escape = static fn (string $value): string => htmlspecialchars($value, ENT_QUOTES | ENT_HTML5, 'UTF-8');
+        $titleAttr = $title !== null && $title !== '' ? ' title="' . $escape($title) . '"' : '';
+        $langAttr = $lang !== null && $lang !== '' ? ' hreflang="' . $escape($lang) . '"' : '';
+        return '<link rel="alternate"' . $langAttr . ' type="' . $escape($type) . '" href="' . $escape($url) . '"' . $titleAttr . '>';
     }
 
     public function isCached(): bool

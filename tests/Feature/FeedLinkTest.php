@@ -8,4 +8,6 @@ test('feed link static method generates correct link', function () {
     expect(Feed::link($url, 'text/xml'))->toBe('<link rel="alternate" type="text/xml" href="http://domain.tld/feed">');
     expect(Feed::link($url, 'rss', 'Feed: RSS'))->toBe('<link rel="alternate" type="application/rss+xml" href="http://domain.tld/feed" title="Feed: RSS">');
     expect(Feed::link($url, 'atom', 'Feed: Atom', 'en'))->toBe('<link rel="alternate" hreflang="en" type="application/atom+xml" href="http://domain.tld/feed" title="Feed: Atom">');
+    expect(Feed::link('http://domain.tld/feed?a=1&b=2', 'atom', '"><script>', 'en"><x'))
+        ->toBe('<link rel="alternate" hreflang="en&quot;&gt;&lt;x" type="application/atom+xml" href="http://domain.tld/feed?a=1&amp;b=2" title="&quot;&gt;&lt;script&gt;">');
 });

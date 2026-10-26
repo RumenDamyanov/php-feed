@@ -21,7 +21,7 @@ A modern, framework-agnostic PHP Feed generator for Laravel, Symfony, and any PH
 
 ## Requirements
 
-- PHP 8.3+
+- PHP 8.3+ (security support until 31 Dec 2027; also tested on 8.4 and 8.5)
 - Composer
 
 ## Installation

@@ -32,3 +32,26 @@ test('feed render returns correct content', function () {
     expect($result['status'])->toBe(200);
     expect($result['headers'])->toBeArray();
 });
+
+test('feed render rejects a format that is not atom or rss', function () {
+    $feed = new Feed([
+        'cache' => new class implements \Rumenx\Feed\FeedCacheInterface {
+            public function has(string $key): bool { return false; }
+            public function get(string $key, $default = null): mixed { return $default; }
+            public function put(string $key, mixed $value, int $ttl): void {}
+            public function forget(string $key): void {}
+        },
+        'config' => new class implements \Rumenx\Feed\FeedConfigInterface {
+            public function get(string $key, $default = null): mixed { return $default; }
+        },
+        'response' => new class implements \Rumenx\Feed\FeedResponseInterface {
+            public function make(mixed $content, int $status = 200, array $headers = []): mixed { return $content; }
+        },
+        'view' => new class implements \Rumenx\Feed\FeedViewInterface {
+            public function make(string $view, array $data = []): mixed { return $view; }
+        },
+    ]);
+
+    expect(fn () => $feed->render('../config/config'))->toThrow(\InvalidArgumentException::class, 'Unsupported feed format');
+    expect(fn () => $feed->render('json'))->toThrow(\InvalidArgumentException::class, 'Unsupported feed format');
+});
