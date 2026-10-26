@@ -13,20 +13,26 @@ jobs:
   pest:
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        php-version: ['8.2', '8.3', '8.4']
+        php-version: ['8.3', '8.4', '8.5']
     steps:
       - uses: actions/checkout@v7
       - name: Setup PHP
         uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php-version }}
-          coverage: xdebug
+          coverage: ${{ matrix.php-version == '8.4' && 'xdebug' || 'none' }}
       - name: Install dependencies
-        run: composer install --prefer-dist --no-interaction --no-progress
+        run: composer update --prefer-dist --no-interaction --no-progress
+      - name: Run Pest
+        if: matrix.php-version != '8.4'
+        run: ./vendor/bin/pest --no-coverage
       - name: Run Pest with coverage
-        run: ./vendor/bin/pest --coverage-clover=coverage.xml
+        if: matrix.php-version == '8.4'
+        run: ./vendor/bin/pest --coverage --coverage-clover=coverage.xml
       - name: Upload coverage to Codecov
+        if: matrix.php-version == '8.4'
         uses: codecov/codecov-action@v7
         with:
           files: ./coverage.xml

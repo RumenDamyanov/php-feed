@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.1.0] - 2026-10-26
+
+### Security
+
+- Accept only `atom` and `rss` in `Feed::render()` unless a custom view is set, so `$format` cannot be turned into a view name such as `feed::../config/config`.
+- Escape `Feed::link()` URL, type, title, and language attributes.
+- Document that PHP2Shell ([CVE-2026-109618](https://www.cve.org/CVERecord?id=CVE-2026-109618), [CVE-2026-109619](https://www.cve.org/CVERecord?id=CVE-2026-109619)) is in the PHP engine: this package cannot patch it. Run PHP **8.3.36+**, **8.4.27+**, or **8.5.12+** ([PHP Foundation advisory](https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/), [CISA alert](https://www.cisa.gov/news-events/alerts/2026/10/21/critical-vulnerabilities-php-require-immediate-patching)).
+
+### Changed
+
+- Require PHP **^8.3**. Composer previously allowed 8.2 even though the docs already required 8.3. PHP 8.2 reaches upstream end of life on 31 December 2026; stay on 1.0.x if you must remain on 8.2 (and use **8.2.35+** until then).
+- CI tests PHP 8.3, 8.4, and 8.5. Coverage is collected on 8.4 only.
+- Upgrade dev tooling to Pest 4 and PHPUnit 12 so `composer update` can resolve on PHP 8.5.
+
 ## [1.0.3] - 2026-08-25
 
 ### Security
