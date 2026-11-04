@@ -33,7 +33,7 @@
 		"pestphp/pest": "^4.0",
 		"orchestra/testbench": "^10",
 		"symfony/cache": "^7.3",
-		"symfony/dependency-injection": "^7.3",
+		"symfony/dependency-injection": "^8.1",
 		"symfony/templating": "^6.4",
 		"phpstan/phpstan": "^2.1",
 		"squizlabs/php_codesniffer": "^4.0"
